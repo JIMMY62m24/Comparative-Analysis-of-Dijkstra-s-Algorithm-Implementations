@@ -161,7 +161,7 @@ Feel free to extend this project by:
 - Including real-world graph datasets
 
 ## License
-MIT License - feel free to use for educational purposes.
+ Feel free to use for educational purposes.
 
 ## Author
 Kabore Taryam William Rodrigue 
