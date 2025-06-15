@@ -1,88 +1,171 @@
-Dijkstra's Algorithm: Comparative Analysis
-This project implements and compares three different versions of Dijkstra's shortest path algorithm to analyze their performance characteristics.
-📋 Project Overview
-This  project demonstrates the implementation and analysis of three Dijkstra's algorithm variations:
-•	Naive Implementation - O(V²) time complexity
-•	Binary Heap Implementation - O((V+E)logV) time complexity
-•	Fibonacci Heap Implementation - O(VlogV + E) time complexity
-🎯 Project Goals
-•	Implement three variations of Dijkstra's algorithm
-•	Compare performance across different graph sizes
-•	Analyze time complexity differences
-•	Visualize execution time comparisons
-•	Document findings and conclusions
+# Dijkstra's Algorithm Performance Analysis
 
-📁 Project Files
-dijkstra-midterm-project/
-├── main.py                         # Main implementation file
-├── test_dijkstra.py                # Algorithm testing suite
-├── dijkstra_performance_comparison.png  # Performance visualization
-├── requirements.txt                # Python dependencies
-├── setup.py                       # Project setup configuration
-├── run_analysis.sh                # Analysis execution script
-└── README.md                      # This documentation
+## Project Overview
+This project implements and compares three different versions of Dijkstra's shortest path algorithm:
+1. **Naive Implementation** - O(V²) time complexity
+2. **Binary Heap Implementation** - O((V + E) log V) time complexity  
+3. **Fibonacci Heap Implementation** - O(E + V log V) time complexity
 
+## Features
+- Complete implementation of all three algorithmic approaches
+- Performance analysis on both sparse and dense graphs
+- Comprehensive test suite for correctness verification
+- Visual performance comparison with matplotlib
+- Memory usage analysis
+- Real-world and synthetic graph testing
 
-🚀 How to Run
-Requirements
-•	Python 3.7 or higher
-•	matplotlib (for visualizations)
-•	numpy (for calculations)
-Installation
+## Algorithm Complexity Analysis
+
+### Time Complexities
+| Implementation | Time Complexity   | Space Complexity |
+|----------------|-------------------|------------------|
+| Naive          | O(V²) | O(V)      |
+| Binary Heap    | O((V + E) log V)  |    O(V)          |
+| Fibonacci Heap | O(E + V log V)    |   O(V)           |
+
+### When to Use Each Implementation
+- **Naive**: Best for very small graphs (V < 100) or when simplicity is priority
+- **Binary Heap**: Best general-purpose implementation, excellent performance/simplicity ratio
+- **Fibonacci Heap**: Best for very dense graphs where E approaches V², theoretical optimal
+
+## Project Structure
+```
+dijkstra-analysis/
+├── main.py                    # Main implementation file
+├── README.md                  # Project documentation
+├── requirements.txt           # Python dependencies
+├── results/                   # Generated analysis results
+│   └── dijkstra_performance_comparison.png
+└── tests/                     # Test cases and validation
+```
+
+## Requirements
+- Python 3.7+
+- NumPy
+- Matplotlib
+- Memory profiler (optional)
+
+## Installation & Setup
+
+### Option 1: Local Setup
+```bash
+# Clone the repository
+git clone [your-repo-url]
+cd dijkstra-analysis
+
 # Install dependencies
 pip install -r requirements.txt
 
-# Or run setup
-python setup.py install
-Running the Project
-1.	Run the main analysis:
-2.	python main.py
-3.	Run tests:
-4.	python test_dijkstra.py
-5.	Run complete analysis (Linux/Mac):
-6.	./run_analysis.sh
-📊 Results Summary
-Test Configuration
-•	Graph sizes tested: 100, 500, 1000, 2000 vertices
-•	Multiple test runs for accuracy
-•	Execution time measured in seconds
-Key Findings
-Algorithm	Time Complexity	Best for
-Naive	O(V²)	Small graphs
-Binary Heap	O((V+E)logV)	Medium graphs
-Fibonacci Heap	O(VlogV + E)	Large, sparse graphs
-Performance Charts
-Performance comparison visualization is saved as dijkstra_performance_comparison.png.
-🔍 Algorithm Details
-Naive Implementation
-•	Simple approach using arrays
-•	Good for small graphs due to low overhead
-•	Becomes inefficient as graph size increases
-Binary Heap Implementation
-•	Uses Python's heapq module
-•	Significant improvement for medium-sized graphs
-•	Good balance of performance and simplicity
-Fibonacci Heap Implementation
-•	Most complex but theoretically optimal
-•	Best performance on large, sparse graphs
-•	Higher constant factors may affect small graphs
-🧪 Testing
+# Run the analysis
+python main.py
+```
+
+### Option 2: Replit Setup
+1. Create new Python repl on Replit
+2. Upload `main.py` to your repl
+3. Install dependencies in Shell:
+   ```bash
+   pip install numpy matplotlib
+   ```
+4. Run the program:
+   ```bash
+   python main.py
+   ```
+
+## Usage
+
+### Basic Usage
+```python
+from main import *
+
+# Create a graph
+graph = GraphGenerator.generate_random_graph(100, 300)
+
+# Run different implementations
+distances_naive = DijkstraImplementations.naive_dijkstra(graph, 0)
+distances_binary = DijkstraImplementations.binary_heap_dijkstra(graph, 0)
+distances_fib = DijkstraImplementations.fibonacci_heap_dijkstra(graph, 0)
+```
+
+### Performance Analysis
+```python
+# Analyze performance across different graph sizes
+sizes = [50, 100, 200, 500, 1000]
+results = PerformanceAnalyzer.analyze_implementations(sizes)
+PerformanceAnalyzer.plot_results(results)
+```
+
+## Key Implementation Details
+
+### Fibonacci Heap Features
+- **Decrease Key**: O(1) amortized time
+- **Extract Min**: O(log V) amortized time
+- **Insert**: O(1) time
+- **Merge**: O(1) time
+
+### Binary Heap (Python heapq)
+- **Extract Min**: O(log V) time
+- **Insert**: O(log V) time
+- Simple to implement and debug
+- Good cache performance
+
+### Graph Generation
+- **Random Graphs**: Configurable vertex count and edge density
+- **Sparse Graphs**: ~2V edges for testing linear-time performance
+- **Dense Graphs**: ~V²/2 edges for testing quadratic scenarios
+
+## Testing & Validation
+
 The project includes comprehensive testing:
-•	Correctness Testing: Verify all implementations produce correct shortest paths
-•	Performance Testing: Compare execution times across different graph sizes
-•	Edge Case Testing: Handle disconnected graphs and special cases
-📈 Performance Analysis
-The analysis includes:
-•	Execution time measurements
-•	Complexity growth visualization
-•	Memory usage comparison
-•	Algorithm efficiency analysis
-🛠️ Technologies Used
-•	Python 3.x - Core implementation
-•	NumPy - Numerical computations
-•	Matplotlib - Data visualization
-•	heapq - Binary heap operations
-•	time - Performance measurement
+
+### Correctness Tests
+- Verifies all implementations produce identical results
+- Tests edge cases (single vertex, disconnected graphs)
+- Validates against known shortest path solutions
+
+### Performance Tests
+- Measures execution time across different graph sizes
+- Compares memory usage between implementations
+- Tests both sparse and dense graph scenarios
+
+## Expected Results
+
+### Performance Characteristics
+1. **Small Graphs (V < 100)**: All implementations perform similarly
+2. **Medium Graphs (100 < V < 1000)**: Binary heap shows clear advantage over naive
+3. **Large Dense Graphs (V > 1000, E >> V)**: Fibonacci heap demonstrates theoretical superiority
+4. **Large Sparse Graphs**: Binary heap often performs best in practice
+
+### Complexity Verification
+The analysis will demonstrate:
+- Naive implementation: Quadratic growth with vertex count
+- Binary heap: Near-linear growth for sparse graphs
+- Fibonacci heap: Optimal performance for dense graphs
+
+## Output Files
+- `dijkstra_performance_comparison.png`: Performance comparison charts
+- Console output: Detailed timing and correctness verification
+
+## Academic Context
+This implementation demonstrates:
+- Advanced data structure usage (Fibonacci heaps)
+- Algorithm optimization techniques
+- Empirical algorithm analysis
+- Graph theory applications
+
+## Contributing
+Feel free to extend this project by:
+- Adding more graph types (planar, bipartite, etc.)
+- Implementing A* algorithm comparison
+- Adding parallel processing capabilities
+- Including real-world graph datasets
+
+## License
+MIT License - feel free to use for educational purposes.
+
+## Author
+Kabore Taryam William Rodrigue 
+
 ________________________________________
 Project - Comparative Analysis of Dijkstra's Algorithm Implementations
 
